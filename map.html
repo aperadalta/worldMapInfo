@@ -11,9 +11,7 @@
     <h1 style="text-align:center;">The World</h1>
     <div id="vmap" style="margin:0 ;width:65%;height:520px;"></div>
 
-    <div>
-      <p>Name: </p>
-      <p>Native name: </p>
+    <div id="info">
     </div>
 
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -68,13 +66,21 @@
             var info = ''
 
             function findCountries(country) {
-                return data.name === country_name;
+                return country.name === country_name;
             }
 
-            console.log(data.find(findCountries)); // { name: 'cherries', quantity: 5 }
+            info = data.find(findCountries);
 
-            // 0-99 Afghanistan - Holy See || 100-199 Honduras - Serbia || 200-249 Seychelles - Zimbabue
-            console.log(data) 
+            var HTMLinfo = `
+            <h3>Name: ${info.name}<h3>
+            <p>Native name: ${info.nativeName}<p>
+            <img src="${info.flag}">
+            <p>Population: ${info.population}<p>
+            <p>Region: ${info.region}<p>
+            `;
+           
+           var origin =  document.getElementById('info');
+           origin.innerHTML = HTMLinfo;
           }
         });  
       });
