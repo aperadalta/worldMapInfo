@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Map</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jqvmap.min.css">
+  </head>
+  <body>
+    <h1 style="text-align:center;">The World</h1>
+    <div id="vmap" style="margin:0 ;width:65%;height:520px;"></div>
+
+    <div>
+      <p>Name: </p>
+      <p>Native name: </p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jquery.vmap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/maps/jquery.vmap.world.js"></script>
+   
+   <script type="text/javascript">
+      var countries = '';
+      var data = '';
+
+      function getCountryInfo(){
+        $.ajax({
+          url:'https://restcountries.eu/rest/v2/all',
+          type:'get',
+          success:function(res){
+            data = res;
+          }
+        });
+      }
+      getCountryInfo();
+
+      function getCountryData(){
+        $.ajax({
+          url:'countries.json',
+          type:'get',
+          success:function(res){
+            countries = res;
+          }
+        });
+      }
+      getCountryData();
+
+      $(document).ready(function(){
+        $("#vmap").vectorMap({
+          map: 'world_en',
+          backgroundColor:'#222',
+          borderColor:'#555',
+          color:'#555',
+          hoverOpacity:0.7,
+          selectedColor:'#666666',
+          enableZoom:true,
+          enableDrag:true,
+          showTooltip:true,
+          normalizeFunction:'polynomial',
+          onLabelShow:function(event,label,code){
+            code = code.toUpperCase();
+            country_name = countries[code];
+            label.html('<strong>'+country_name+'</strong>');
+          },
+          onRegionClick:function(event, label, code){
+            console.log(country_name)
+            var info = ''
+
+            function findCountries(country) {
+                return data.name === country_name;
+            }
+
+            console.log(data.find(findCountries)); // { name: 'cherries', quantity: 5 }
+
+            // 0-99 Afghanistan - Holy See || 100-199 Honduras - Serbia || 200-249 Seychelles - Zimbabue
+            console.log(data) 
+          }
+        });  
+      });
+      
+
+    </script>
+  </body>
+</html>
