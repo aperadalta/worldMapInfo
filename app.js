@@ -1,25 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Map</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jqvmap.min.css">
-  </head>
-  <body>
-    <h1 style="text-align:center;">The World</h1>
-    <div id="vmap" style="margin:0 ;width:65%;height:520px;"></div>
-
-    <div id="info">
-    </div>
-
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jquery.vmap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/maps/jquery.vmap.world.js"></script>
-   
-   <script type="text/javascript">
-      var countries = '';
+var countries = '';
       var data = '';
 
       function getCountryInfo(){
@@ -84,8 +63,3 @@
           }
         });  
       });
-      
-
-    </script>
-  </body>
-</html>
