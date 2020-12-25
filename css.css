@@ -17,10 +17,28 @@ img{
     width: 160px;
 }
 
-#info{
+span{
+    color: grey;
+}
+
+#main{
+    width: 400px;
+    margin-left: -15%;
+}
+
+#form{
     background-color: rgb(230, 230, 230);
     padding: 25px;
-    margin-left: -15%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#info{
+    margin-top: 20px;
+    width: 100%;
+    background-color: rgb(230, 230, 230);
+    padding: 25px;
 }
 
 hr{margin: 10px;}
