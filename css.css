@@ -7,11 +7,13 @@
     font-weight: 100;
 }
 
+
 body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    grid-gap: 3vw;
 }
+
 
 img{
     width: 160px;
@@ -21,10 +23,7 @@ span{
     color: grey;
 }
 
-#main{
-    width: 400px;
-    margin-left: -15%;
-}
+
 
 #form{
     background-color: rgb(230, 230, 230);

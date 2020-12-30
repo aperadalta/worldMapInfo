@@ -24,6 +24,11 @@ function getCountryData(){
 getCountryData();
 
 $(document).ready(function(){
+  $('#search').click(()=>{
+    var searchBar = String($('#countryName').val());
+    placeHTML(searchBar);
+  })
+
   $("#vmap").vectorMap({
     map: 'world_en',
     backgroundColor:'#222',
@@ -41,43 +46,47 @@ $(document).ready(function(){
       label.html('<strong>'+country_name+'</strong>');
     },
     onRegionClick:function(){
-      var info = ''
-      console.log(data);
-      // Converting info into the object of the country
-      function findCountries(country) {
-          if(country_name == "United States") country_name = "United States of America";
-          if(country_name == "Russia") country_name = "Russian Federation";
-          if(country_name == "Iran") country_name = "Iran (Islamic Republic of)";
-          return country.name === country_name;
-      }
-      info = data.find(findCountries);
-
-      // Correcting numbers: 1000 -> 1.000
-      function dotNumbers (num) {
-        return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
-      }
-      var population = dotNumbers(info.population);
-      var area = dotNumbers(info.area);
-      var density = dotNumbers(Math.ceil(info.population/info.area));
-      
-      console.log(info);
-      var HTMLinfo = `
-          <h3>Name: ${info.name}<h3>
-          <p>Native name: ${info.nativeName}<p>
-          <hr>
-          <p>Flag:</p>
-          <img src="${info.flag}">
-          <hr>
-          <p>Population: ${population}<p>
-          <p>Area: ${area} km<sup style="font-size: 0.7rem">2</sup></p>
-          <p>Density: ${density} hab/km<sup style="font-size: 0.7rem">2</sup><p>
-          <hr>
-          <p>Region: ${info.region}<p>
-          <p>Currencies: ${info.currencies[0].name} (${info.currencies[0].symbol})</p>
-      `;
-      
-      var origin =  document.getElementById('info');
-      origin.innerHTML = HTMLinfo;
+      placeHTML(country_name, data);
     }
   });  
 });
+
+function placeHTML (country_name, data) {
+
+  var info = '';
+
+  // Converting info into the object of the country
+  function findCountries(country) {
+      return country.name === country_name;
+  }
+
+  info = data.find(findCountries);
+  
+  // Correcting numbers: 1000 -> 1.000
+  function dotNumbers (num) {
+    return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+  }
+  var population = dotNumbers(info.population);
+  var area = dotNumbers(info.area);
+  var density = dotNumbers(Math.ceil(info.population/info.area));
+  
+  console.log(info);
+  var HTMLinfo = `
+      <h3>Name: ${info.name}<h3>
+      <p>Native name: ${info.nativeName}<p>
+      <hr>
+      <p>Flag:</p>
+      <img src="${info.flag}">
+      <hr>
+      <p>Population: ${population}<p>
+      <p>Area: ${area} km<sup style="font-size: 0.7rem">2</sup></p>
+      <p>Density: ${density} hab/km<sup style="font-size: 0.7rem">2</sup><p>
+      <hr>
+      <p>Region: ${info.region}<p>
+      <p>Currencies: ${info.currencies[0].name} (${info.currencies[0].symbol})</p>
+  `;
+  
+  var origin =  document.getElementById('info');
+  origin.innerHTML = HTMLinfo;
+
+}
